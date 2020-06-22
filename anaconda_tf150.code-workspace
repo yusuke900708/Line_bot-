@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.pythonPath": "/Users/mizutaniyusuke/opt/anaconda3/envs/tf_150"
+	}
+}
