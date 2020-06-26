@@ -9,7 +9,7 @@ import jupyter
 # LINE notify へのアクセス
 
 # test用
-access_token = 'BC9YMpFXnczc8SGjiC00WibBPj5ArfBz8hY3ENw8nVi'
+access_token_test = 'BC9YMpFXnczc8SGjiC00WibBPj5ArfBz8hY3ENw8nVi'
 # 水谷さんのお知らせ（お天気様）
 access_token_tenki = 'Cm5Odan247i43KiPTsTn5TD7S5uQg46utH7LHrOZZNB'
 # 水谷さんのお知らせ（ゴミ捨て）
@@ -38,6 +38,8 @@ def GOMISUTE():
         message = '明日は{0}の資源ゴミの日です。プラ類，紙包装類，ペットボトル，ビン，缶を捨てるの忘れないようにしよう！'.format(w_list[wd + 1])
     elif wd == 4:
         message = '明日は{0}です。第２{0}はダンボールを捨てる日です。捨てるときは7:50まで忘れずに捨てよう！'.format(w_list[wd + 1])
+    else: 
+        message = "明日のゴミ捨てはないよ"
     return message
 
 def forecast_API():
@@ -49,7 +51,7 @@ def forecast_API():
     tenki_data = requests.get(base_url, params=payload).json()
     titile = format(json_data['title'])
     
-    #
+    #int
     date = []
     dateLabel = []
     telop = []
@@ -88,15 +90,15 @@ def LINE1():  # LINE  message_tenki
 
 def LINE2():
     # LINE_message_gomisute
-    LINE_gomi = LINE_notify(access_token=access_token_gomi)
+    LINE_gomi = LINE_notify(access_token=access_token_gomi
     message2 = '\n' + GOMISUTE()
     LINE_gomi.sent(message2)
 
 
 # maiin
 # 毎日22時00分に実行
-schedule.every().day.at("22:30").do(LINE1)
-schedule.every().day.at("22:30").do(LINE2)
+schedule.every().day.at("22:00").do(LINE1)
+schedule.every().day.at("22:00").do(LINE2)
 
 while True:
     schedule.run_pending()
